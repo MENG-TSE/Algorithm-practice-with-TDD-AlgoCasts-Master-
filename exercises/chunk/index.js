@@ -10,16 +10,27 @@
 
 function chunk(array, size) {
     const chuncked = [];
-    for (let element of array){
-        const last = chuncked[chuncked.length - 1];
-
-        if(!last || last.length === size){
-            chuncked.push([element]);
-        }else{
-            last.push(element);
-        }
+    let index = 0;
+    while(index < array.length){
+        chuncked.push(array.slice(index, index + size));
+        index += size;
     }
     return chuncked;
 }
 
 module.exports = chunk;
+
+
+// function chunk(array, size) {
+//     const chuncked = [];
+//     for (let element of array){
+//         const last = chuncked[chuncked.length - 1];
+
+//         if(!last || last.length === size){
+//             chuncked.push([element]);
+//         }else{
+//             last.push(element);
+//         }
+//     }
+//     return chuncked;
+// }
