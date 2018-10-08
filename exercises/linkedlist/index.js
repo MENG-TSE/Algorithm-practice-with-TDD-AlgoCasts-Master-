@@ -15,10 +15,14 @@ class LinkedList {
         this.head = null;
     }
 
-    insertNode(data) {
-        const node  = new Node(data,this.head);
-        this.head = node;
+    insertFirst(data){
+        this.InsertAt(data,0);
     }
+    //兩個都可以
+    // insertFirst(data) {
+    //     const node  = new Node(data,this.head);
+    //     this.head = node;
+    // }
 
     Size(){
         let counter = 0;
@@ -29,22 +33,29 @@ class LinkedList {
         }
         return counter;
     }
+
+
     getFirst(){
-        let node = this.head;
-        return node;
+        return this.getAt(0);
     }
+    //都可
+    // getFirst(){
+    //     let node = this.head;
+    //     return node;
+    // }
 
     getLast(){
-        if (this.head){
-            return null;
-        }
-        let node = this.head;
-        while(node){
-            if(!node.next){
-                return node;
-            }
-            node = node.next;
-        }
+        // if (this.head){
+        //     return null;
+        // }
+        // let node = this.head;
+        // while(node){
+        //     if(!node.next){
+        //         return node;
+        //     }
+        //     node = node.next;
+        // }
+        return this.getAt(this.size() - 1);
     }
 
     clear(){
@@ -103,6 +114,53 @@ class LinkedList {
             node = node.next;
         }
         return null;
+    }
+
+    removeAt(index){
+        if(!this.head){
+            return;
+        }
+        if(index == 0){
+            this.head = this.head.next;
+            return;
+        }
+        const previous = this.getAt(index-1);
+        if(!previous || !previous.next){
+            return;
+        }
+        previous.next = previous.next.next;
+    }
+    //hard
+    InsertAt(data,index){
+        if(!this.head){
+            this.head = new Node(data);
+            return;
+        }
+        if(index == 0){
+            this.head = new Node(data,this.head);
+            return;
+        }
+        const previous = this.getAt(index - 1) || this.getLast();
+        const node = new Node(data,previous.next);
+        previous.next = node;
+    }
+    ///see
+    forEach(fn){
+        let node = this.head;
+        let counter = 0 ;
+        while(node){
+            fn(node, counter);
+            node = node.next;
+            counter++;
+        }
+    }
+
+    *[Symbol.iterator](){
+        let node = this.head;
+        while (node){
+            yield node;
+            node = node.next;
+        }
     }
 
 
