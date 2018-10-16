@@ -13,8 +13,8 @@
 //   circular(l) // true
 
 function circular(list) {
-    let fast = getfirst();
-    let slow = getfirst();
+    let fast = list.getFirst();
+    let slow = list.getFirst();
     while(fast.next.next && fast.next){
         fast = getfirst.next.next;
         slow = getfirst.next;
